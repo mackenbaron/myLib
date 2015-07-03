@@ -5,6 +5,10 @@
 
 #pragma once
 
+#include "targetver.h"
+
+#include <stdio.h>
+#include <tchar.h>
 #if defined WIN32 || defined _WIN32
 #include <winsock2.h>
 #include <Windows.h>
@@ -28,7 +32,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>    // For mkdir(path, options) on Linux
 #endif 
-
 
 
 // TODO: reference additional headers your program requires here
