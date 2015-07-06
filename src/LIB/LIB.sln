@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibHttpClient", "LibHttpCli
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibHttpDownload", "LibHttpDownload\LibHttpDownload.vcxproj", "{BDBACE12-7BF9-4520-A8C1-3A1DB14CB740}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsqlite", "libsqlite\libsqlite.vcxproj", "{1E561E6B-AE4F-45C6-B340-D36BD87E78E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -67,6 +69,10 @@ Global
 		{BDBACE12-7BF9-4520-A8C1-3A1DB14CB740}.Debug|Win32.Build.0 = Debug|Win32
 		{BDBACE12-7BF9-4520-A8C1-3A1DB14CB740}.Release|Win32.ActiveCfg = Release|Win32
 		{BDBACE12-7BF9-4520-A8C1-3A1DB14CB740}.Release|Win32.Build.0 = Release|Win32
+		{1E561E6B-AE4F-45C6-B340-D36BD87E78E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1E561E6B-AE4F-45C6-B340-D36BD87E78E0}.Debug|Win32.Build.0 = Debug|Win32
+		{1E561E6B-AE4F-45C6-B340-D36BD87E78E0}.Release|Win32.ActiveCfg = Release|Win32
+		{1E561E6B-AE4F-45C6-B340-D36BD87E78E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
