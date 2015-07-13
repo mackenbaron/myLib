@@ -10,11 +10,11 @@ public:
 		OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
 		IN std::string UserAgent="",IN std::string Prox="",IN std::string Cookies="");
 
-	int clinetPost(IN std::string url,IN std::string contentData,
+	int clientPost(IN std::string url,IN std::string contentData,
 		OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
 		IN std::string UserAgent="",IN std::string Prox="",IN std::string Cookies="");
 
 
-
+	int ClientDownload(IN std::string sourSrc,IN std::string destSrc,IN std::string Cookies);
 };
 
