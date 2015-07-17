@@ -17,30 +17,31 @@ int HttpClient::clientGet(IN std::string url,
 	OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
+	util u;
 	// Set URL.
-	WinHttpClient client(util::AnsiToUnicode(url.c_str()));
+	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
 
 	if(!UserAgent.empty())
 	{
-		 client.SetUserAgent(util::AnsiToUnicode(UserAgent.c_str()));
+		 client.SetUserAgent(u.AnsiToUnicode(UserAgent.c_str()));
 	}
 	if(!Proxy.empty())
 	{
-		client.SetProxy(util::AnsiToUnicode(Proxy.c_str()));
+		client.SetProxy(u.AnsiToUnicode(Proxy.c_str()));
 	}
 	if(!Cookies.empty())
 	{
-		 client.SetAdditionalRequestCookies(util::AnsiToUnicode(Cookies.c_str()));
+		 client.SetAdditionalRequestCookies(u.AnsiToUnicode(Cookies.c_str()));
 	}
 	// Send http request, a GET request by default.
 	client.SendHttpRequest();
 
 	// The response header.
 	wstring httpResponseHeader = client.GetResponseHeader();
-	ResponseHeader = util::UnicodeToAnsi(httpResponseHeader.c_str());
+	ResponseHeader = u.UnicodeToAnsi(httpResponseHeader.c_str());
 	// The response content.
 	wstring httpResponseContent = client.GetResponseContent();
-	ResponseContent = util::UnicodeToAnsi(httpResponseContent.c_str());
+	ResponseContent = u.UnicodeToAnsi(httpResponseContent.c_str());
 	return _wtoi(client.GetResponseStatusCode().c_str());
 }
 
@@ -48,7 +49,8 @@ int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 	OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
-	WinHttpClient client(util::AnsiToUnicode(url.c_str()));
+	util u;
+	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
 
 	// Set post data.
 	string data = contentData;
@@ -58,15 +60,15 @@ int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 	}
 	if(!UserAgent.empty())
 	{
-		client.SetUserAgent(util::AnsiToUnicode(UserAgent.c_str()));
+		client.SetUserAgent(u.AnsiToUnicode(UserAgent.c_str()));
 	}
 	if(!Proxy.empty())
 	{
-		client.SetProxy(util::AnsiToUnicode(Proxy.c_str()));
+		client.SetProxy(u.AnsiToUnicode(Proxy.c_str()));
 	}
 	if(!Cookies.empty())
 	{
-		client.SetAdditionalRequestCookies(util::AnsiToUnicode(Cookies.c_str()));
+		client.SetAdditionalRequestCookies(u.AnsiToUnicode(Cookies.c_str()));
 	}
 	// Set request headers.
 	wchar_t szSize[50] = L"";
@@ -82,20 +84,21 @@ int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 	wstring httpResponseHeader = client.GetResponseHeader();
 	wstring httpResponseContent = client.GetResponseContent();
 
-	ResponseHeader = util::UnicodeToAnsi(httpResponseHeader.c_str());
-	ResponseContent = util::UnicodeToAnsi(httpResponseContent.c_str());
+	ResponseHeader = u.UnicodeToAnsi(httpResponseHeader.c_str());
+	ResponseContent = u.UnicodeToAnsi(httpResponseContent.c_str());
 	return _wtoi(client.GetResponseStatusCode().c_str());
 }
 
 int HttpClient::ClientDownload(IN std::string sourSrc,IN std::string destSrc,IN std::string Cookies)
 {
-	WinHttpClient downloadClient(util::AnsiToUnicode(sourSrc.c_str()));
+	util u;
+	WinHttpClient downloadClient(u.AnsiToUnicode(sourSrc.c_str()));
 	downloadClient.SetUserAgent(L"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; InfoPath.2; CIBA; MS-RTC LM 8)");
-	downloadClient.SetAdditionalRequestCookies(util::AnsiToUnicode(Cookies.c_str()));
+	downloadClient.SetAdditionalRequestCookies(u.AnsiToUnicode(Cookies.c_str()));
 	if (!downloadClient.SendHttpRequest())
 	{
 		return -1;
 	}
-	downloadClient.SaveResponseToFile(util::AnsiToUnicode(destSrc.c_str()));
+	downloadClient.SaveResponseToFile(u.AnsiToUnicode(destSrc.c_str()));
 	return 0;
 }
