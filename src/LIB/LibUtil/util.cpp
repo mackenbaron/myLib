@@ -142,3 +142,41 @@ wchar_t* util::Utf8ToUnicode( const char* utf )
 	MultiByteToWideChar(CP_UTF8,0,utf,-1,pwText,dwUnicodeLen);   
 	return pwText;  
 }
+
+char* util::intTOStirng(const int n)
+{
+	char _temp[128]={'\0'};
+	if(n>=0)
+	{
+		sprintf(_temp,"%d",n);
+		
+	}else
+	{
+		sprintf(_temp,"%d",0);
+	}
+	return _temp;
+	
+}
+
+char* util::DoubleTOString(const double n)
+{
+	char _temp[128]={'\0'};
+	if(n>=0)
+	{
+		sprintf(_temp,"%f",n);
+
+	}else
+	{
+		sprintf(_temp,"%f",0.0);
+	}
+	return _temp;
+}
+
+int util::StringToInt(const char* src)
+{
+	return atoi(src);
+}
+double util::StringTODouble(const char* src)
+{
+	return atof(src);
+}

@@ -15,6 +15,10 @@ public:
 	char* UnicodeToAnsi( const WCHAR* szStr );//wchar to char
 	char* UnicodeToUTF8( const WCHAR* szStr );//wchar to utf8
 	wchar_t* Utf8ToUnicode(const char* utf);//utf8 to wchar
+	char* intTOStirng(const int n);
+	char* DoubleTOString(const double n);
+	int StringToInt(const char* src);
+	double StringTODouble(const char* src);
 	
 };
 
