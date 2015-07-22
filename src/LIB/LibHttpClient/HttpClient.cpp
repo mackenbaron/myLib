@@ -20,6 +20,7 @@ int HttpClient::clientGet(IN std::string url,
 	util u;
 	// Set URL.
 	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
+	client.SetTimeouts(1000,60000,30000,1000);
 
 	if(!UserAgent.empty())
 	{
@@ -51,7 +52,7 @@ int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 {
 	util u;
 	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
-
+	client.SetTimeouts(1000,60000,30000,1000);
 	// Set post data.
 	string data = contentData;
 	if(!contentData.empty())
