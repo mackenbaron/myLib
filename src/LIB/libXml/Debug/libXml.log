@@ -1,0 +1,29 @@
+﻿Build started 2015/7/25 19:50:17.
+     1>Project "E:\project\myLib\src\LIB\libXml\libXml.vcxproj" on node 4 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\libXml.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D TIXML_USE_TICPP /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ticpp.cpp tinystr.cpp tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp
+         tinyxmlparser.cpp
+         tinyxmlerror.cpp
+         tinyxml.cpp
+         tinystr.cpp
+         ticpp.cpp
+         Generating Code...
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1151,5): warning MSB8012: TargetPath(E:\project\myLib\src\LIB\..\..\lib\Debug\libXml.lib) does not match the Library's OutputFile property value (E:\project\myLib\lib\Debug\libXmld.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(1153,5): warning MSB8012: TargetName(libXml) does not match the Library's OutputFile property value (libXmld). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"E:\project\myLib\src\LIB\..\..\lib\Debug\libXmld.lib" /NOLOGO Debug\ticpp.obj
+         Debug\tinystr.obj
+         Debug\tinyxml.obj
+         Debug\tinyxmlerror.obj
+         Debug\tinyxmlparser.obj
+         libXml.vcxproj -> E:\project\myLib\src\LIB\..\..\lib\Debug\libXml.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\libXml.unsuccessfulbuild".
+         Touching "Debug\libXml.lastbuildstate".
+     1>Done Building Project "E:\project\myLib\src\LIB\libXml\libXml.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.50

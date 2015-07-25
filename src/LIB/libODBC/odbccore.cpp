@@ -14,6 +14,17 @@
 //
 // CODBCDatabase Class
 //
+WCHAR* AnsiToUnicode( const char* szStr )
+{
+	int nLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szStr, -1, NULL, 0 );
+	if (nLen == 0)
+	{
+		return NULL;
+	}
+	WCHAR* pResult = new wchar_t[nLen];
+	MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szStr, -1, pResult, nLen );
+	return pResult;
+}
 
 void CODBCDatabase::SQLAlloc()
 {
@@ -48,14 +59,24 @@ BOOL CODBCDatabase::Open(CHAR* szDSN,CHAR* szUser, CHAR* szPass)
 		SQLSetConnectAttr(m_hDbc, SQL_ATTR_CONNECTION_TIMEOUT, (SQLPOINTER)m_lConnectionTimeout, 0);
 		
 	SQLSetConnectAttr(m_hDbc, SQL_ATTR_LOGIN_TIMEOUT, (SQLPOINTER)m_lLoginTimeout, 0);
-
+#ifndef UNICODE
 	ret = SQLConnect(m_hDbc, 
-					(SQLCHAR*)szDSN, 
-					sizeof(szDSN), 
-					(SQLCHAR*)szUser, 
-					sizeof(szUser), 
-					(SQLCHAR*)szPass, 
-					sizeof(szPass));
+		(SQLCHAR*)szDSN, 
+		sizeof(szDSN), 
+		(SQLCHAR*)szUser, 
+		sizeof(szUser), 
+		(SQLCHAR*)szPass, 
+		sizeof(szPass));
+#else
+	ret = SQLConnect(m_hDbc, 
+		(SQLWCHAR*)AnsiToUnicode(szDSN), 
+		sizeof(szDSN), 
+		(SQLWCHAR*)AnsiToUnicode(szUser), 
+		sizeof(szUser), 
+		(SQLWCHAR*)AnsiToUnicode(szPass), 
+		sizeof(szPass));
+#endif
+	
 
 	m_bIsConnected = ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
 	return m_bIsConnected;
@@ -65,13 +86,22 @@ BOOL CODBCDatabase::Browse(UCHAR* szConnStrIn, UCHAR* szConnStrOut)
 {
 	SQLRETURN ret;
 	SWORD swLenOut = 0;
-
+#ifndef UNICODE
 	ret = SQLBrowseConnect(m_hDbc, 
-							(SQLCHAR*)szConnStrIn, 
-							sizeof(szConnStrIn), 
-							(SQLCHAR*)szConnStrOut, 
-							MAX_BUFFER, 
-							&swLenOut);
+		(SQLCHAR*)szConnStrIn, 
+		sizeof(szConnStrIn), 
+		(SQLCHAR*)szConnStrOut, 
+		MAX_BUFFER, 
+		&swLenOut);
+#else
+	ret = SQLBrowseConnect(m_hDbc, 
+		(SQLWCHAR *)AnsiToUnicode((char*)szConnStrIn), 
+		sizeof(szConnStrIn), 
+		(SQLWCHAR *)AnsiToUnicode((char*)szConnStrOut), 
+		MAX_BUFFER, 
+		&swLenOut);
+#endif
+	
 
 	m_bIsConnected = ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
 	return m_bIsConnected;
@@ -98,15 +128,26 @@ BOOL CODBCDatabase::DriverConnect(CHAR* szConnStr, CHAR* szConnStrOut, HWND hWnd
 		SQLSetConnectAttr(m_hDbc, SQL_ATTR_CONNECTION_TIMEOUT, (SQLPOINTER)m_lConnectionTimeout, 0);
 	
 	SQLSetConnectAttr(m_hDbc, SQL_ATTR_LOGIN_TIMEOUT, (SQLPOINTER)m_lLoginTimeout, 0);
-	
+#ifndef UNICODE
 	ret = SQLDriverConnect(m_hDbc, 
-							hWnd, 
-							(SQLCHAR*)szConnStr, 
-							SQL_NTS, 
-							(SQLCHAR*)szConnStrOut,
-							sizeof(szConnStrOut), 
-							&pcbConnStrOut, 
-							(SQLUSMALLINT)drvConn);
+		hWnd, 
+		(SQLCHAR*)szConnStr, 
+		SQL_NTS, 
+		(SQLCHAR*)szConnStrOut,
+		sizeof(szConnStrOut), 
+		&pcbConnStrOut, 
+		(SQLUSMALLINT)drvConn);
+#else
+	ret = SQLDriverConnect(m_hDbc, 
+		hWnd, 
+		(SQLWCHAR *)AnsiToUnicode(szConnStr), 
+		SQL_NTS, 
+		(SQLWCHAR *)AnsiToUnicode(szConnStrOut),
+		sizeof(szConnStrOut), 
+		&pcbConnStrOut, 
+		(SQLUSMALLINT)drvConn);
+#endif
+	
 	
 	m_bIsConnected = ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
 	return m_bIsConnected;
@@ -134,7 +175,12 @@ BOOL CODBCDatabase::Execute(CHAR *szSqlStr)
 	SQLINTEGER nRowCount;
 
 	SQLAllocHandle(SQL_HANDLE_STMT, m_hDbc, &hStmt);
+#ifndef UNICODE
 	ret = SQLExecDirect(hStmt, (SQLCHAR*)szSqlStr, SQL_NTS);
+#else
+	ret = SQLExecDirect(hStmt, (SQLWCHAR *)AnsiToUnicode(szSqlStr), SQL_NTS);
+#endif
+	
 	
 	
 	SQLRowCount(hStmt, &nRowCount);
@@ -157,8 +203,12 @@ void CODBCRecordset::AllocStmt()
 BOOL CODBCRecordset::Open(CHAR *szSqlStr)
 {
 	SQLRETURN ret;
-
+#ifndef UNICODE
 	ret = SQLExecDirect(m_hStmt, (SQLCHAR*)szSqlStr, SQL_NTS);
+#else
+	ret = SQLExecDirect(m_hStmt, (SQLWCHAR *)AnsiToUnicode(szSqlStr), SQL_NTS);
+#endif
+	
 	if(ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
 	{
 		SQLFetch(m_hStmt);
@@ -263,7 +313,12 @@ int CODBCRecordset::GetFieldIndex(CHAR *szFieldName)
 	while(nCol < nCols)
 	{
 		memset(szColName, 0, 32 * sizeof(CHAR));
+#ifndef UNICODE
 		SQLDescribeCol(m_hStmt, nCol, (SQLCHAR*)szColName, MAX_COL_NAME_LEN, &cbColNameLen, &fSqlType, &cbColDef, &ibScale, &fNullable);
+#else
+		SQLDescribeCol(m_hStmt, nCol, (SQLWCHAR*)AnsiToUnicode(szColName), MAX_COL_NAME_LEN, &cbColNameLen, &fSqlType, &cbColDef, &ibScale, &fNullable);
+#endif
+		
 
 		if(_stricmp(szColName, szFieldName) == 0)
 			return nCol - 1;
@@ -334,8 +389,12 @@ BOOL CODBCRecordset::GetFieldAttributes(int nField, CHAR* szFieldName, int& nTyp
 	SQLRETURN ret;
 	SQLSMALLINT cbColNameLen, fSqlType, ibScale, fNullable;
 	SQLUINTEGER cbColDef;
-	
+#ifndef UNICODE
 	ret = SQLDescribeCol(m_hStmt, nField + 1, (SQLCHAR*)szFieldName, MAX_COL_NAME_LEN, &cbColNameLen, &fSqlType, &cbColDef, &ibScale, &fNullable);
+#else
+	ret = SQLDescribeCol(m_hStmt, nField + 1, (SQLWCHAR*)AnsiToUnicode(szFieldName), MAX_COL_NAME_LEN, &cbColNameLen, &fSqlType, &cbColDef, &ibScale, &fNullable);
+#endif
+	
 	
 	nType = fSqlType;
 	nLength = cbColDef;
