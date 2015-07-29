@@ -368,9 +368,11 @@ void Logger::enableFileLogging()
    m_LogType = FILE_LOG ;
 }
 
+std::string  CPlusPlusLogging::Logger::getLogname()
 {
 	time_t t = time(0); 
 	char tmp[64]; 
+	strftime( tmp, sizeof(tmp), "%Y%m%d%H%M%S.log",localtime(&t)); 
 	return std::string(tmp);
 }
 
