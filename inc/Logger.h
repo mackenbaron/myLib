@@ -47,13 +47,13 @@
 namespace CPlusPlusLogging
 {
    // Direct Interface for logging into log file or console using MACRO(s)
-   #define LOG_ERROR(y,x)    Logger::getInstance(y)->error(x)
-   #define LOG_ALARM(y,x)	   Logger::getInstance(y)->alarm(x)
-   #define LOG_ALWAYS(y,x)	Logger::getInstance(y)->always(x)
-   #define LOG_INFO(y,x)     Logger::getInstance(y)->info(x)
-   #define LOG_BUFFER(y,x)   Logger::getInstance(y)->buffer(x)
-   #define LOG_TRACE(y,x)    Logger::getInstance(y)->trace(x)
-   #define LOG_DEBUG(y,x)    Logger::getInstance(y)->debug(x)
+   #define LOG_ERROR(x)    Logger::getInstance()->error(x)
+   #define LOG_ALARM(x)	   Logger::getInstance()->alarm(x)
+   #define LOG_ALWAYS(x)	Logger::getInstance()->always(x)
+   #define LOG_INFO(x)     Logger::getInstance()->info(x)
+   #define LOG_BUFFER(x)   Logger::getInstance()->buffer(x)
+   #define LOG_TRACE(x)    Logger::getInstance()->trace(x)
+   #define LOG_DEBUG(x)    Logger::getInstance()->debug(x)
 
    // enum for LOG_LEVEL
    typedef enum LOG_LEVEL
@@ -77,7 +77,7 @@ namespace CPlusPlusLogging
    class Logger
    {
       public:
-         static Logger* getInstance(std::string paht) throw ();
+         static Logger* getInstance() throw ();
 
          // Interface for Error Log 
          void error(const char* text) throw();
@@ -128,7 +128,7 @@ namespace CPlusPlusLogging
          void enableFileLogging();
 
       protected:
-         Logger(std::string logpaht);
+         Logger();
          ~Logger();
 
          // Wrapper function for lock/unlock
@@ -143,6 +143,7 @@ namespace CPlusPlusLogging
          void logOnConsole(std::string& data);
          Logger(const Logger& obj) {}
          void operator=(const Logger& obj) {}
+		 std::string &getLogname();
 
       private:
          static Logger*          m_Instance;
