@@ -40,11 +40,11 @@ using namespace CPlusPlusLogging;
 Logger* Logger::m_Instance = 0;
 
 // Log file name. File name should be change from here only
-const string logFileName = "MyLogFile.log";
+//const string logFileName = "MyLogFile.log";
 
-Logger::Logger()
+Logger::Logger(std::string logpaht)
 {
-   m_File.open(logFileName.c_str(), ios::out|ios::app);
+   m_File.open(logpaht.c_str(), ios::out|ios::app);
    m_LogLevel	= LOG_LEVEL_TRACE;
    m_LogType	= FILE_LOG;
 
@@ -79,11 +79,11 @@ Logger::~Logger()
 #endif
 }
 
-Logger* Logger::getInstance() throw ()
+Logger* Logger::getInstance(std::string paht) throw ()
 {
    if (m_Instance == 0) 
    {
-      m_Instance = new Logger();
+      m_Instance = new Logger(paht);
    }
    return m_Instance;
 }
