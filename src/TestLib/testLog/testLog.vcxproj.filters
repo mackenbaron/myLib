@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{5ae79124-9806-4041-996c-6611f69da2a3}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -24,22 +21,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\atlrx.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\RegExp.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\StringProcess.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\WinHttpClient.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="util.h">
+    <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,10 +29,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HttpClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="util.cpp">
+    <ClCompile Include="testLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
