@@ -15,12 +15,13 @@ HttpClient::~HttpClient(void)
 
 int HttpClient::clientGet(IN std::string url,
 	OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
+	IN int resolveTimeout/*=0*/,IN int connectTimeout/* = 60000*/,IN int sendTimeout/* = 30000*/,IN int receiveTimeout/* = 30000*/,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
 	util u;
 	// Set URL.
 	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
-	client.SetTimeouts(1000,60000,30000,1000);
+		client.SetTimeouts(resolveTimeout,connectTimeout,sendTimeout,receiveTimeout);
 
 	if(!UserAgent.empty())
 	{
@@ -48,11 +49,12 @@ int HttpClient::clientGet(IN std::string url,
 
 int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 	OUT std::string &ResponseHeader,OUT std::string &ResponseContent,
+	IN int resolveTimeout/*=0*/,IN int connectTimeout/* = 60000*/,IN int sendTimeout/* = 30000*/,IN int receiveTimeout/* = 30000*/,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
 	util u;
 	WinHttpClient client(u.AnsiToUnicode(url.c_str()));
-	client.SetTimeouts(1000,60000,30000,1000);
+	client.SetTimeouts(resolveTimeout,connectTimeout,sendTimeout,receiveTimeout);
 	// Set post data.
 	string data = contentData;
 	if(!contentData.empty())
