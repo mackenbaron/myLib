@@ -22,10 +22,10 @@ int SocketRequest::setRequestGetRequest( char* Request,char* Body,char* RErrorMe
 	ReslutInt = GetRequest(Request,mRequestMessage);
 	if(ReslutInt != 0)
 		return ReslutInt;
-	ReslutInt = AnalysisResult(mRequestMessage);
-	if(ReslutInt != 0)
-		return ReslutInt;
-	ReslutInt = mRequestMessage._head.ReturnNumber;
+// 	ReslutInt = AnalysisResult(mRequestMessage);
+// 	if(ReslutInt != 0)
+// 		return ReslutInt;
+// 	ReslutInt = mRequestMessage._head.ReturnNumber;
 // 	if(Body != NULL)
 // 	{
 // 		int bodysize = strlen(Body);
@@ -60,10 +60,10 @@ int SocketRequest::setRequestPostRequest( char* RequestBody,char* RequestPar,cha
 	ReslutInt = PostRequest(RequestBody,RequestPar,mRequestMessage);
 	if(ReslutInt != 0)
 		return ReslutInt;
-	ReslutInt = AnalysisResult(mRequestMessage);
-	if(ReslutInt != 0)
-		return ReslutInt;
-	ReslutInt = mRequestMessage._head.ReturnNumber;
+// 	ReslutInt = AnalysisResult(mRequestMessage);
+// 	if(ReslutInt != 0)
+// 		return ReslutInt;
+// 	ReslutInt = mRequestMessage._head.ReturnNumber;
 // 	if(Body != NULL)
 // 	{
 // 		int bodysize = strlen(Body);
@@ -221,8 +221,6 @@ int SocketRequest::PostRequest( char* RequestBody,char* RequestPar,HtppRequest_t
 	Req = NULL;
 	delete[]Header;
 	Header = NULL;
-	if(re.RequestResult.empty())
-		retslut = 3;
 	return retslut;
 }
 
@@ -291,8 +289,6 @@ int SocketRequest::GetRequest( char* Request,HtppRequest_t& re )
 	Header = NULL;
 	closesocket(socketfd);
 	WSACleanup();
-	if(re.RequestResult.empty())
-		retslut = 3;
 	return retslut;
 }
 int SocketRequest::parse_url(char *url, char **serverstrp, int *portp, char **pathstrp)
