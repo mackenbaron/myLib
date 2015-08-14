@@ -197,3 +197,71 @@ double util::StringTODouble(const char* src)
 {
 	return atof(src);
 }
+
+std::vector<std::string> util::split(std::string &str,std::string &pattern)
+{
+	std::string::size_type pos; 
+	std::vector<std::string> result;
+	str+=pattern;
+	int size=str.size(); 
+
+	for(int i=0; i<size; i++)
+	{
+		pos=str.find(pattern,i);
+		if(pos<(std::string::size_type)size)
+		{
+			std::string s=str.substr(i,pos-i);
+			result.push_back(s);
+			i=pos+pattern.size()-1;
+		}
+	}     
+	return result;
+}
+
+std::string util::GBKToUTF8(const std::string& strGBK)
+{
+	std::string strOutUTF8 = "";  
+	WCHAR * str1;  
+	int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);  
+	str1 = new WCHAR[n];  
+	MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);  
+	n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);  
+	char * str2 = new char[n];  
+	WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);  
+	strOutUTF8 = str2;  
+	delete[]str1;  
+	str1 = NULL;  
+	delete[]str2;  
+	str2 = NULL;  
+	return strOutUTF8;  
+}
+
+std::string util::UTF8ToGBK(const std::string& strUTF8)
+{
+	int len = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);  
+	WCHAR * wszGBK = new WCHAR[len + 1];  
+	memset(wszGBK, 0, len * 2 + 2);  
+	MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)strUTF8.c_str(), -1, wszGBK, len);  
+
+	len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);  
+	char *szGBK = new char[len + 1];  
+	memset(szGBK, 0, len + 1);  
+	WideCharToMultiByte(CP_ACP,0, wszGBK, -1, szGBK, len, NULL, NULL);  
+	//strUTF8 = szGBK;  
+	std::string strTemp(szGBK);  
+	delete[]szGBK;  
+	delete[]wszGBK;  
+	return strTemp;  
+}
+
+void util::ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3)
+{
+	std::string::size_type pos=0;
+	std::string::size_type a=s2.size();
+	std::string::size_type b=s3.size();
+	while((pos=s1.find(s2,pos))!=std::string::npos)
+	{
+		s1.replace(pos,a,s3);
+		pos+=b;
+	}
+}

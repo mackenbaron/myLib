@@ -23,6 +23,10 @@ class util
 		static char* DoubleTOString(const double n);
 		static int StringToInt(const char* src);
 		static double StringTODouble(const char* src);
+		static std::vector<std::string> split(std::string &str,std::string &pattern);
+		static std::string GBKToUTF8(const std::string& strGBK); 
+		static std::string UTF8ToGBK(const std::string& strUTF8);
+		static void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);
 
 };
 
