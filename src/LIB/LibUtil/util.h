@@ -27,6 +27,8 @@ class util
 		static std::string GBKToUTF8(const std::string& strGBK); 
 		static std::string UTF8ToGBK(const std::string& strUTF8);
 		static void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);
+		static std::string Base64Encode(const unsigned char* Data,int DataByte);
+		static std::string Base64Decode(const char* Data,int DataByte,int& OutByte);
 
 };
 
