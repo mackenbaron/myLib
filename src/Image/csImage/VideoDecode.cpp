@@ -23,6 +23,7 @@ namespace cs
 		mVideoInfo.width = 0;
 		mVideoInfo.VIDuration = 0;
 		frame_count = 0;
+		mw=0,mh=0,md =0,mc=0;
 		if(mCapture)
 			cvReleaseCapture(&mCapture);
 		return 0;

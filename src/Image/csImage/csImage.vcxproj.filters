@@ -18,9 +18,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="csimage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="csIniType.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -2,7 +2,7 @@
 #define UTIL_H
 
 class util
-	{
+{
 	public:
 #ifdef WIN32
 		void readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def);
@@ -29,7 +29,6 @@ class util
 		void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);
 		std::string Base64Encode(const unsigned char* Data,int DataByte);
 		std::string Base64Decode(const char* Data,int DataByte,int& OutByte);
-
 };
 
 

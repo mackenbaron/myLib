@@ -78,7 +78,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="csimage.h" />
     <ClInclude Include="csIniType.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="VideoDecode.h" />
