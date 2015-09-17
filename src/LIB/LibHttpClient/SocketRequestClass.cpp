@@ -28,7 +28,7 @@ int SocketRequest::setRequestGetRequest( char* Request,std::string& Body,std::st
  	ReslutInt = mRequestMessage._head.ReturnNumber;
 	Body = mRequestMessage._body.Result;
 	RErrorMesg = mRequestMessage._head.ReturnResult;
-	return ReslutInt;
+	return ReslutInt==200?0:ReslutInt;
 }
 
 int SocketRequest::setRequestPostRequest( char* RequestBody,char* RequestPar,std::string& Body,std::string& RErrorMesg )
@@ -44,7 +44,7 @@ int SocketRequest::setRequestPostRequest( char* RequestBody,char* RequestPar,std
  	ReslutInt = mRequestMessage._head.ReturnNumber;
  	Body = mRequestMessage._body.Result;
  	RErrorMesg = mRequestMessage._head.ReturnResult;
-	return ReslutInt;
+	return ReslutInt==200?0:ReslutInt;
 }
 
 int SocketRequest::AnalysisResult( HtppRequest_t &re )
@@ -53,16 +53,11 @@ int SocketRequest::AnalysisResult( HtppRequest_t &re )
 	{
 		return 4;
 	}
-	int HtmlSrca  = re.RequestResult.find("\r\n");
+	int HtmlSrca  = re.RequestResult.find("\r\n\r\n");
 	if(HtmlSrca > 0)
 	{
-		int isjsonsrc = re.RequestResult.find("<");
-		if(isjsonsrc <= 0)
-		{
-			return 4;
-		}
-		std::string _tempHttpHead = re.RequestResult.substr(0,isjsonsrc-1);
-		std::string _tempJsonsrc = re.RequestResult.substr(isjsonsrc,re.RequestResult.size());
+		std::string _tempHttpHead = re.RequestResult.substr(0,HtmlSrca);
+		std::string _tempJsonsrc = re.RequestResult.substr(HtmlSrca,re.RequestResult.size());
 
 		re._head.RequestHead = _tempHttpHead;
 		re._body.Result = _tempJsonsrc;
@@ -76,30 +71,7 @@ int SocketRequest::AnalysisResult( HtppRequest_t &re )
 		}
 		re._head.ReturnNumber = atoi( _tempHttp1.substr(_tempa,4).c_str());
 		re._head.ReturnResult= _tempHttp1.substr(_tempa+4,_tempHttp1.size());
-
-	}else
-	{
-		int isjsonsrc = re.RequestResult.find("{");
-		if(isjsonsrc <= 0)
-		{
-			return 4;
-		}
-		std::string _tempHttpHead = re.RequestResult.substr(0,isjsonsrc-1);
-		std::string _tempJsonsrc = re.RequestResult.substr(isjsonsrc,re.RequestResult.size());
-
-		re._head.RequestHead = _tempHttpHead;
-		re._body.Result = _tempJsonsrc;
-
-		std::string  _tempHttp1 = _tempHttpHead.substr(0,_tempHttpHead.find("\r\n"));
-
-		int _tempa = _tempHttp1.find(" ");
-		if(_tempa <= 0)
-		{
-			return 4;
-		}
-		re._head.ReturnNumber = atoi( _tempHttp1.substr(_tempa,4).c_str());
-		re._head.ReturnResult= _tempHttp1.substr(_tempa+4,_tempHttp1.size());
-	}	
+	}
 	return 0;
 }
 
