@@ -15,79 +15,35 @@ SocketRequest::~SocketRequest()
 {
 }
 
-int SocketRequest::setRequestGetRequest( char* Request,char* Body,char* RErrorMesg )
+int SocketRequest::setRequestGetRequest( char* Request,std::string& Body,std::string& RErrorMesg )
 {
 	HtppRequest_t  mRequestMessage;
 	int ReslutInt = -100;
 	ReslutInt = GetRequest(Request,mRequestMessage);
 	if(ReslutInt != 0)
 		return ReslutInt;
-// 	ReslutInt = AnalysisResult(mRequestMessage);
-// 	if(ReslutInt != 0)
-// 		return ReslutInt;
-// 	ReslutInt = mRequestMessage._head.ReturnNumber;
-// 	if(Body != NULL)
-// 	{
-// 		int bodysize = strlen(Body);
-// 		int resultsize = mRequestMessage._body.Result.size();
-// 		if(bodysize >= resultsize)
-// 			strcpy(Body,mRequestMessage._body.Result.c_str());
-// 		else
-// 			return 6;
-// 	}else
-// 	{
-// 		return 5;
-// 	}
-// 	if(RErrorMesg != NULL)
-// 	{
-// 		int bodysize = strlen(RErrorMesg);
-// 		int resultsize = mRequestMessage._head.ReturnResult.size();
-// 		if(bodysize >= resultsize)
-// 			strcpy(RErrorMesg,mRequestMessage._head.ReturnResult.c_str());
-// 		else
-// 			return 6;
-// 	}else
-// 	{
-// 		return 5;
-// 	}
+ 	ReslutInt = AnalysisResult(mRequestMessage);
+ 	if(ReslutInt != 0)
+ 		return ReslutInt;
+ 	ReslutInt = mRequestMessage._head.ReturnNumber;
+	Body = mRequestMessage._body.Result;
+	RErrorMesg = mRequestMessage._head.ReturnResult;
 	return ReslutInt;
 }
 
-int SocketRequest::setRequestPostRequest( char* RequestBody,char* RequestPar,char* Body,char* RErrorMesg )
+int SocketRequest::setRequestPostRequest( char* RequestBody,char* RequestPar,std::string& Body,std::string& RErrorMesg )
 {
 	HtppRequest_t  mRequestMessage;
 	int ReslutInt = -100;
 	ReslutInt = PostRequest(RequestBody,RequestPar,mRequestMessage);
 	if(ReslutInt != 0)
 		return ReslutInt;
-// 	ReslutInt = AnalysisResult(mRequestMessage);
-// 	if(ReslutInt != 0)
-// 		return ReslutInt;
-// 	ReslutInt = mRequestMessage._head.ReturnNumber;
-// 	if(Body != NULL)
-// 	{
-// 		int bodysize = strlen(Body);
-// 		int resultsize = mRequestMessage._body.Result.size();
-// 		if(bodysize >= resultsize)
-// 			strcpy(Body,mRequestMessage._body.Result.c_str());
-// 		else
-// 			return 6;
-// 	}else
-// 	{
-// 		return 5;
-// 	}
-// 	if(RErrorMesg != NULL)
-// 	{
-// 		int bodysize = strlen(RErrorMesg);
-// 		int resultsize = mRequestMessage._head.ReturnResult.size();
-// 		if(bodysize >= resultsize)
-// 			strcpy(RErrorMesg,mRequestMessage._head.ReturnResult.c_str());
-// 		else
-// 			return 6;
-// 	}else
-// 	{
-// 		return 5;
-// 	}
+ 	ReslutInt = AnalysisResult(mRequestMessage);
+ 	if(ReslutInt != 0)
+ 		return ReslutInt;
+ 	ReslutInt = mRequestMessage._head.ReturnNumber;
+ 	Body = mRequestMessage._body.Result;
+ 	RErrorMesg = mRequestMessage._head.ReturnResult;
 	return ReslutInt;
 }
 
@@ -97,7 +53,7 @@ int SocketRequest::AnalysisResult( HtppRequest_t &re )
 	{
 		return 4;
 	}
-	int HtmlSrca  = re.RequestResult.find("<");
+	int HtmlSrca  = re.RequestResult.find("\r\n");
 	if(HtmlSrca > 0)
 	{
 		int isjsonsrc = re.RequestResult.find("<");

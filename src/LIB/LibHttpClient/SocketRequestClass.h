@@ -43,8 +43,8 @@ class SocketRequest
 public:
 	SocketRequest();
 	~SocketRequest();
-	int setRequestGetRequest( char* Request,char* Body,char* RErrorMesg);
-	int setRequestPostRequest( char* RequestBody,char* RequestPar,char* Body,char* RErrorMesg);
+	int setRequestGetRequest( char* Request,std::string& Body,std::string& RErrorMesg);
+	int setRequestPostRequest( char* RequestBody,char* RequestPar,std::string& Body,std::string& RErrorMesg);
 private:
 	int parse_url(char *url, char **serverstrp, int *portp, char **pathstrp);
 	int GetRequest(char* Request,HtppRequest_t& re);

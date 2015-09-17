@@ -19,9 +19,8 @@ int HttpClient::clientGet(IN std::string url,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
 	SocketRequest mSocketRequest;
-	char _temperror[1024] ={'\0'};
-	char _temperror1[1024] ={'\0'};
-	int r = mSocketRequest.setRequestGetRequest(const_cast<char*>(url.c_str()),_temperror1,_temperror);
+	
+	int r = mSocketRequest.setRequestGetRequest(const_cast<char*>(url.c_str()),ResponseContent,ResponseHeader);
 	return r;
 }
 
@@ -30,9 +29,7 @@ int HttpClient::clientPost(IN std::string url,IN std::string contentData,
 	IN std::string UserAgent/*=""*/,IN std::string Proxy/*=""*/,IN std::string Cookies/*=""*/)
 {
 	SocketRequest mSocketRequest;
-	char _temperror[1024] ={'\0'};
-	char _temperror1[1024] ={'\0'};
-	int r = mSocketRequest.setRequestPostRequest(const_cast<char*>(url.c_str()),const_cast<char*>(contentData.c_str()),_temperror,_temperror1);
+	int r = mSocketRequest.setRequestPostRequest(const_cast<char*>(url.c_str()),const_cast<char*>(contentData.c_str()),ResponseContent,ResponseHeader);
 	return r;	
 }
 
