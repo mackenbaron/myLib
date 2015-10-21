@@ -330,7 +330,7 @@ htmlcxx::HTML::ParserSax::skipHtmlComment(_Iterator c, _Iterator end)
 		if (*c++ == '-' && c != end && *c == '-')
 		{
 			_Iterator d(c);
-			 while (++c != end &&((unsigned)*c > 255 || !isspace(*c) ) && *c != '>');
+			while (++c != end && isspace(*c));
 			if (c == end || *c++ == '>') break;
 			c = d;
 		}

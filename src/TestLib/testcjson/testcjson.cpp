@@ -200,7 +200,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char *out2 = create2();
 	char *out3 = create3();
 	char *out4 = create4();
-	 printf("%s\n\n\n",out1);
+	 printf("%s\n\n\n",out2);
 	 parse1(out1);
 	 printf("%s\n\n\n",out2);
 	return 0;

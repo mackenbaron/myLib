@@ -3,7 +3,7 @@
 
 #AC_PREREQ(2.57)
 AC_INIT(htmlcxx.cc)
-AM_INIT_AUTOMAKE(htmlcxx, 0.84)
+AM_INIT_AUTOMAKE(htmlcxx, 0.85)
 AM_CONFIG_HEADER([config.h])
 AM_DISABLE_STATIC
 
@@ -17,7 +17,7 @@ AC_PROG_LIBTOOL
 # Checks for libraries.
 # Replace `main' with a function in -lfl:
 AC_CHECK_LIB(fl, main)
-
+AC_CHECK_LIB(iconv, iconv_open)
 
 
 # Checks for header files.
