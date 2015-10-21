@@ -14,7 +14,7 @@ namespace htmlcxx {
 		{
 			const char *ptr;
 			const char *end = begin+size;
-			const char *signature =NULL;
+			const char *signature ="";
 			char previous_byte = 0;
 			unsigned count_bad_utf = 0;
 			unsigned count_good_utf = 0;
