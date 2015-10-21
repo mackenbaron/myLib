@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\project\myLib\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\project\myLib\lib;E:\project\myLib\lib\Debug;E:\project\myLib\lib\LIB Debug - LIB OpenSSL - LIB LibSSH2;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\DayBreakZcs\myLib\inc;E:\DayBreakZcs\myLib\inc\mylib;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\DayBreakZcs\myLib\lib;E:\DayBreakZcs\myLib\lib\Debug;E:\DayBreakZcs\myLib\lib\LIB Debug - LIB OpenSSL - LIB LibSSH2;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\bin\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -56,7 +56,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>LibUtil.lib;libcurld.lib;libeay32.lib;ssleay32.lib;ws2_32.lib;winmm.lib;wldap32.lib;libssh2.lib;htmlcxx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>LibUtild.lib;libcurld.lib;libeay32.lib;ssleay32.lib;ws2_32.lib;winmm.lib;wldap32.lib;libssh2.lib;htmlcxx.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

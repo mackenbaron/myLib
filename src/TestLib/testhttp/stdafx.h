@@ -22,6 +22,7 @@
 #include "time.h"
 #include <stdio.h>
 #include <stdlib.h> 
+#include <vector>
 #define snprintf sprintf_s    // Visual Studio on Windows comes with sprintf_s() instead of snprintf()
 
 #pragma comment(lib,"Shlwapi.lib")
