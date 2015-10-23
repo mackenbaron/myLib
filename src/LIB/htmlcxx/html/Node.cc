@@ -25,7 +25,13 @@ void Node::parseAttributes()
 
 	// Skip tagname
 	if (!isalpha(*ptr)) return;
-	while (!isspace(*ptr) && *ptr != '>') ++ptr;
+	//while (!isspace(*ptr) && *ptr != '>') ++ptr;
+	while (!isspace(*ptr))     
+	{    
+		if(*ptr == '>')    
+			return;    
+		++ptr;    
+	}   
 
 	// Skip blankspace after tagname
 	/*while (isspace(*ptr)) ++ptr;*/
@@ -78,14 +84,16 @@ void Node::parseAttributes()
 				//while (isspace(*begin) && begin < end) ++begin;
 				while (((unsigned)*begin > 255 || isspace(*begin)) && begin < end) ++begin; 
 				const char *trimmed_end = end - 1;
-				while (isspace(*trimmed_end) && trimmed_end >= begin) --trimmed_end;
+				//while (isspace(*trimmed_end) && trimmed_end >= begin) --trimmed_end;
+				while ((!((unsigned)*trimmed_end > 255) && isspace(*trimmed_end)) && trimmed_end >= begin) --trimmed_end;
 				val.assign(begin, trimmed_end + 1);
 				ptr = end + 1;
 			}
 			else 
 			{
 				end = ptr;
-				while (*end && !isspace(*end) && *end != '>') end++;
+				//while (*end && !isspace(*end) && *end != '>') end++;
+				while (*end &&((unsigned)*end > 255 || !isspace(*end) ) && *end != '>') end++; 
 				val.assign(ptr, end);
 				ptr = end;
 			}

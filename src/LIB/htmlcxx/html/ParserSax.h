@@ -2,7 +2,6 @@
 #define __HTML_PARSER_SAX_H__
 
 #include <string>
-
 #include "Node.h"
 
 namespace htmlcxx
