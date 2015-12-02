@@ -22,7 +22,7 @@ char * create1()
 	cJSON_AddStringToObject(dir1,"path","uploads/");
 	cJSON_AddStringToObject(dir1,"flag","ец");
 	cJSON_AddItemToArray(root,dir2=cJSON_CreateObject());
-	cJSON_AddStringToObject(dir2,"name","..");
+	cJSON_AddStringToObject(dir2,"na{me","..");
 	cJSON_AddStringToObject(dir2,"path","uploads");
 	cJSON_AddStringToObject(dir2,"flag","true");
 	cJSON_AddItemToArray(root,dir3=cJSON_CreateObject());
@@ -200,9 +200,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	char *out2 = create2();
 	char *out3 = create3();
 	char *out4 = create4();
+	// printf("%s\n\n\n",out1);
 	 printf("%s\n\n\n",out2);
-	 parse1(out1);
-	 printf("%s\n\n\n",out2);
+	// printf("%s\n\n\n",out3);
+	 //printf("%s\n\n\n",out4);
+	 parse2(out2);
+	 //printf("%s\n\n\n",out2);
 	return 0;
 }
 

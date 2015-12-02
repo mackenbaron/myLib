@@ -43,6 +43,11 @@
     <TargetName>$(ProjectName)d</TargetName>
     <LibraryPath>D:\opencv\opencv\build\x86\vc10\staticlib;E:\DayBreakZcs\myLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\..\lib\$(Configuration)\</OutDir>
+    <IncludePath>..\..\..\inc\csImage;D:\opencv\opencv\build\include;D:\opencv\opencv\build\include\opencv;D:\opencv\opencv\build\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\opencv\opencv\build\x86\vc10\staticlib;E:\DayBreakZcs\myLib\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Create</PrecompiledHeader>
