@@ -29,6 +29,8 @@ class util
 		void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);
 		std::string Base64Encode(const unsigned char* Data,int DataByte);
 		std::string Base64Decode(const char* Data,int DataByte,int& OutByte);
+		std::string UrlEncode(const std::string& szToEncode);
+		std::string UrlDecode(const std::string& szToDecode);
 };
 
 

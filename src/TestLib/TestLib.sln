@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testhttpclient", "testhttpc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testcjson", "testcjson\testcjson.vcxproj", "{622C7DB4-B15C-4D0D-AD7B-91CED7DA3914}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testglog", "testglog\testglog.vcxproj", "{BD560D4B-1989-49AB-A4F1-940A6AA831DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{622C7DB4-B15C-4D0D-AD7B-91CED7DA3914}.Debug|Win32.Build.0 = Debug|Win32
 		{622C7DB4-B15C-4D0D-AD7B-91CED7DA3914}.Release|Win32.ActiveCfg = Release|Win32
 		{622C7DB4-B15C-4D0D-AD7B-91CED7DA3914}.Release|Win32.Build.0 = Release|Win32
+		{BD560D4B-1989-49AB-A4F1-940A6AA831DE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BD560D4B-1989-49AB-A4F1-940A6AA831DE}.Debug|Win32.Build.0 = Debug|Win32
+		{BD560D4B-1989-49AB-A4F1-940A6AA831DE}.Release|Win32.ActiveCfg = Release|Win32
+		{BD560D4B-1989-49AB-A4F1-940A6AA831DE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
