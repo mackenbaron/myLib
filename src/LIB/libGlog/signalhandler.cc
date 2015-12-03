@@ -63,7 +63,6 @@ const struct {
   { SIGILL, "SIGILL" },
   { SIGFPE, "SIGFPE" },
   { SIGABRT, "SIGABRT" },
-  { SIGBUS, "SIGBUS" },
   { SIGTERM, "SIGTERM" },
 };
 
