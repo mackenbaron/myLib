@@ -1,5 +1,8 @@
 #include "stdafx.h"
-#include "util.h"
+#include "util.h" 
+#include "JsonString.h"
+
+
 #ifdef WIN32
 void util::readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def)
 {
@@ -430,4 +433,13 @@ std::string util::UrlDecode(const std::string& szToDecode)
 		}
 	}
 	return result;
+}
+
+bool util::CheckFormatJson(std::string src)
+{
+	JsonString a ;
+	const char* _tempa = src.c_str();
+	const char* _tempb = src.c_str()+src.size();
+	bool ad = a.CheckFormat(_tempa,_tempb);
+	return ad;
 }

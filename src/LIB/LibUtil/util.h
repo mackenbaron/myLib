@@ -19,18 +19,19 @@ class util
 		char* UnicodeToAnsi( const WCHAR* szStr );//wchar to char
 		char* UnicodeToUTF8( const WCHAR* szStr );//wchar to utf8
 		wchar_t* Utf8ToUnicode(const char* utf);//utf8 to wchar
-		char* intTOStirng(const int n);
-		char* DoubleTOString(const double n);
-		int StringToInt(const char* src);
-		double StringTODouble(const char* src);
-		std::vector<std::string> split(std::string &str,std::string &pattern);
-		std::string GBKToUTF8(const std::string& strGBK); 
-		std::string UTF8ToGBK(const std::string& strUTF8);
-		void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);
-		std::string Base64Encode(const unsigned char* Data,int DataByte);
-		std::string Base64Decode(const char* Data,int DataByte,int& OutByte);
-		std::string UrlEncode(const std::string& szToEncode);
-		std::string UrlDecode(const std::string& szToDecode);
+		char* intTOStirng(const int n);//int to char
+		char* DoubleTOString(const double n);//double to char
+		int StringToInt(const char* src); //char to int
+		double StringTODouble(const char* src);// char to double
+		std::vector<std::string> split(std::string &str,std::string &pattern);//取分隔符之间的多个字符
+		std::string GBKToUTF8(const std::string& strGBK); //gbk to utf8
+		std::string UTF8ToGBK(const std::string& strUTF8);//utf8 to gbk
+		void ReplaceSrc(std::string&s1,const std::string&s2,const std::string&s3);//查询替换字符串
+		std::string Base64Encode(const unsigned char* Data,int DataByte);//编码base64
+		std::string Base64Decode(const char* Data,int DataByte,int& OutByte);//解码base64
+		std::string UrlEncode(const std::string& szToEncode);//编码url 中文
+		std::string UrlDecode(const std::string& szToDecode);//解码url 中文
+		bool CheckFormatJson(std::string src);//验证json是否合法
 };
 
 
