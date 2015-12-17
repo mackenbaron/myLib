@@ -1,0 +1,4 @@
+Log file created at: 2015/12/09 10:30:11
+Running on machine: DAYBREAK-PC
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I1209 10:30:11.440120  6356 webthread.cpp:43] Listening on Port0
