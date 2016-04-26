@@ -14,6 +14,7 @@
 #include <sql.h>
 #include <sqlext.h>
 #include <time.h>
+#include <stdio.h>
 
 #define MAX_BUFFER 256
 #define MAX_COL_NAME_LEN 32

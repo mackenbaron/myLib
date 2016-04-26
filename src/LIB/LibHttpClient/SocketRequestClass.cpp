@@ -95,6 +95,12 @@ int SocketRequest::PostRequest( char* RequestBody,char* RequestPar,HtppRequest_t
 	if (WSAStartup(MAKEWORD(2,2),&WsaData))
 	{
 		printf("The socket failed");
+		delete[] host;
+		host = NULL;
+		delete[] Req;
+		Req = NULL;
+		delete[]Header;
+		Header = NULL;
 		return -1;
 	}
 	parse_url(RequestBody,&host,&port,&Req);
@@ -105,7 +111,15 @@ int SocketRequest::PostRequest( char* RequestBody,char* RequestPar,HtppRequest_t
 	socketfd = socket(PF_INET,SOCK_STREAM,IPPROTO_TCP);
 	pURL = gethostbyname(host);
 	if(pURL == NULL)
+	{
+		delete[] host;
+		host = NULL;
+		delete[] Req;
+		Req = NULL;
+		delete[]Header;
+		Header = NULL;
 		return -2;
+	}
 
 	addr.sin_addr.s_addr = *((unsigned long *)pURL->h_addr);
 	addr.sin_family = AF_INET;
@@ -171,6 +185,12 @@ int SocketRequest::GetRequest( char* Request,HtppRequest_t& re )
 	if (WSAStartup(MAKEWORD(2,2),&WsaData))
 	{
 		printf("The socket failed");
+		delete[] host;
+		host = NULL;
+		delete[] GET;
+		GET = NULL;
+		delete []Header;
+		Header = NULL;
 		return -1;
 	}
 	parse_url(Request,&host,&port,&GET);
@@ -181,7 +201,15 @@ int SocketRequest::GetRequest( char* Request,HtppRequest_t& re )
 	socketfd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
 	pURL = gethostbyname(host);
 	if(pURL == NULL)
+	{
+		delete[] host;
+		host = NULL;
+		delete[] GET;
+		GET = NULL;
+		delete []Header;
+		Header = NULL;
 		return -2;
+	}
 
 	addr.sin_addr.s_addr = *((unsigned long *)pURL->h_addr);
 	addr.sin_family = AF_INET;

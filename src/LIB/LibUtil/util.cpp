@@ -214,7 +214,8 @@ std::vector<std::string> util::split(std::string &str,std::string &pattern)
 		if(pos<(std::string::size_type)size)
 		{
 			std::string s=str.substr(i,pos-i);
-			result.push_back(s);
+			if(s.size()>0)
+				result.push_back(s);
 			i=pos+pattern.size()-1;
 		}
 	}     

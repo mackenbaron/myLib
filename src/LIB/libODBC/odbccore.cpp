@@ -14,7 +14,8 @@
 //
 // CODBCDatabase Class
 //
-WCHAR* AnsiToUnicode( const char* szStr )
+
+inline WCHAR* AnsiToUnicode( const char* szStr )
 {
 	int nLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szStr, -1, NULL, 0 );
 	if (nLen == 0)
@@ -117,7 +118,7 @@ void CODBCDatabase::SetConnectionTimeout(LONG nSeconds)
 
 BOOL CODBCDatabase::DriverConnect(CHAR* szConnStr, CHAR* szConnStrOut, HWND hWnd, enum drvCompletion drvConn)
 {
-
+	printf("DriverConnect :%s\n",szConnStr);
 	SQLRETURN ret;
 	SQLSMALLINT pcbConnStrOut;
 
@@ -126,7 +127,7 @@ BOOL CODBCDatabase::DriverConnect(CHAR* szConnStr, CHAR* szConnStrOut, HWND hWnd
 
 	if(m_lConnectionTimeout > 0)
 		SQLSetConnectAttr(m_hDbc, SQL_ATTR_CONNECTION_TIMEOUT, (SQLPOINTER)m_lConnectionTimeout, 0);
-	
+	printf("m_lConnectionTimeout\n",szConnStr);
 	SQLSetConnectAttr(m_hDbc, SQL_ATTR_LOGIN_TIMEOUT, (SQLPOINTER)m_lLoginTimeout, 0);
 #ifndef UNICODE
 	ret = SQLDriverConnect(m_hDbc, 
@@ -147,7 +148,7 @@ BOOL CODBCDatabase::DriverConnect(CHAR* szConnStr, CHAR* szConnStrOut, HWND hWnd
 		&pcbConnStrOut, 
 		(SQLUSMALLINT)drvConn);
 #endif
-	
+	printf("Connect Code:%d\n",ret);
 	
 	m_bIsConnected = ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
 	return m_bIsConnected;
