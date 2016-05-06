@@ -2,25 +2,23 @@
 #include "util.h" 
 #include "JsonString.h"
 
-
-#ifdef WIN32
 void util::readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def)
 {
 	WCHAR char_temp[512] = {L'\0'};
-	GetPrivateProfileString(util::AnsiToUnicode(root.c_str()),util::AnsiToUnicode(userkey.c_str()),util::AnsiToUnicode(def.c_str()),char_temp,MAX_PATH,util::AnsiToUnicode(path.c_str()));
-	uservalue = util::UnicodeToAnsi(char_temp);
+	GetPrivateProfileString((A2U(root).c_str()),A2U(userkey).c_str(),A2U(def).c_str(),char_temp,MAX_PATH,A2U(path).c_str());
+	uservalue = U2A(char_temp);
 }
 
 void util::readINIFileInt(std::string path,std::string root,std::string userkey,int &userValue,int def)
 {
-	userValue = GetPrivateProfileInt(util::AnsiToUnicode(root.c_str()),util::AnsiToUnicode(userkey.c_str()),def,util::AnsiToUnicode(path.c_str()));
+	userValue = GetPrivateProfileInt(A2U(root).c_str(),A2U(userkey).c_str(),def,A2U(path).c_str());
 }
 
 void util::writeINIFileString(std::string path,std::string root,std::string userkey,std::string value)
 {
-	WritePrivateProfileString(util::AnsiToUnicode(root.c_str()),util::AnsiToUnicode(userkey.c_str()),util::AnsiToUnicode(value.c_str()),util::AnsiToUnicode(path.c_str()));
+	WritePrivateProfileString(A2U(root).c_str(),A2U(userkey).c_str(),A2U(value).c_str(),A2U(path).c_str());
 }
-#endif
+
 void util::UTF_8ToUnicode(wchar_t* pOut,char *pText){
 	char* uchar = (char *)pOut;
 	uchar[1] = ((pText[0] & 0x0F) << 4) + ((pText[1] >> 2) & 0x0F);
@@ -113,59 +111,10 @@ void util::UTF_8ToGB2312(std::string &pOut, char *pText, int pLen){
 	return;
 }
 
-WCHAR* util::AnsiToUnicode( const char* szStr )
+std::string util::intTOStirng(const int n)
 {
-	int nLen = MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szStr, -1, NULL, 0 );
-	if (nLen == 0)
-	{
-		return NULL;
-	}
-	WCHAR* pResult = new wchar_t[nLen];
-	MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szStr, -1, pResult, nLen );
-	return pResult;
-}
-
-char* util::UnicodeToAnsi( const WCHAR* szStr )
-{
-	int nLen = WideCharToMultiByte( CP_ACP, 0, szStr, -1, NULL, 0, NULL, NULL );
-	if (nLen == 0)
-	{
-		return NULL;
-	}
-	char* pResult = new char[nLen];
-	WideCharToMultiByte( CP_ACP, 0, szStr, -1, pResult, nLen, NULL, NULL );
-	return pResult;
-}
-
-char* util::UnicodeToUTF8( const WCHAR* szStr )
-{
-	int nLen = WideCharToMultiByte( CP_UTF8, 0, szStr, -1, NULL, 0, NULL, NULL );
-	if (nLen == 0)
-	{
-		return NULL;
-	}
-	char* pResult = new char[nLen];
-	WideCharToMultiByte( CP_UTF8, 0, szStr, -1, pResult, nLen, NULL, NULL );
-	return pResult;
-}
-
-wchar_t* util::Utf8ToUnicode( const char* utf )
-{
-	if(!utf || !strlen(utf))  
-	{  
-		return NULL;  
-	}  
-	int dwUnicodeLen = MultiByteToWideChar(CP_UTF8,0,utf,-1,NULL,0);  
-	size_t num = dwUnicodeLen*sizeof(wchar_t);  
-	wchar_t *pwText = (wchar_t*)malloc(num);  
-	memset(pwText,0,num);  
-	MultiByteToWideChar(CP_UTF8,0,utf,-1,pwText,dwUnicodeLen);   
-	return pwText;  
-}
-
-char* util::intTOStirng(const int n)
-{
-	char _temp[128]={'\0'};
+	char *_temp=new char[128];
+	memset(_temp,'\0',128);
 	if(n>=0)
 	{
 		sprintf(_temp,"%d",n);
@@ -174,13 +123,16 @@ char* util::intTOStirng(const int n)
 	{
 		sprintf(_temp,"%d",0);
 	}
-	return _temp;
+	std::string _tmepsrc(_temp);
+	delete[]_temp;
+	return _tmepsrc;
 	
 }
 
-char* util::DoubleTOString(const double n)
+std::string util::DoubleTOString(const double n)
 {
-	char _temp[128]={'\0'};
+	char *_temp=new char[128];
+	memset(_temp,'\0',128);
 	if(n>=0)
 	{
 		sprintf(_temp,"%f",n);
@@ -189,7 +141,9 @@ char* util::DoubleTOString(const double n)
 	{
 		sprintf(_temp,"%f",0.0);
 	}
-	return _temp;
+	std::string _tmepsrc(_temp);
+	delete[]_temp;
+	return _tmepsrc;
 }
 
 int util::StringToInt(const char* src)
@@ -443,4 +397,226 @@ bool util::CheckFormatJson(std::string src)
 	const char* _tempb = src.c_str()+src.size();
 	bool ad = a.CheckFormat(_tempa,_tempb);
 	return ad;
+}
+
+std::string util::U2A(const std::wstring& str)
+{
+	std::string strDes;  
+	if ( str.empty() )  
+		goto __end;  
+	int nLen=::WideCharToMultiByte(CP_ACP, 0, str.c_str(), str.size(), NULL, 0, NULL, NULL);  
+	if ( 0==nLen )  
+		goto __end;  
+	char* pBuffer=new char[nLen+1];  
+	memset(pBuffer, 0, nLen+1);  
+	::WideCharToMultiByte(CP_ACP, 0, str.c_str(), str.size(), pBuffer, nLen, NULL, NULL);  
+	pBuffer[nLen]='\0';  
+	strDes.append(pBuffer);  
+	delete[] pBuffer;  
+__end:  
+	return strDes; 
+}
+std::wstring util::A2U(const std::string& str)//Ascii字符转  
+{  
+	std::wstring strDes;  
+	if ( str.empty() )  
+		goto __end;  
+	int nLen=::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), NULL, 0);  
+	if ( 0==nLen )  
+		goto __end;  
+	wchar_t* pBuffer=new wchar_t[nLen+1];  
+	memset(pBuffer, 0, nLen+1);  
+	::MultiByteToWideChar(CP_ACP, 0, str.c_str(), str.size(), pBuffer, nLen);  
+	pBuffer[nLen]='\0';  
+	strDes.append(pBuffer);  
+	delete[] pBuffer;  
+__end:  
+	return strDes;  
+}  
+
+std::string util::U2Utf(const std::wstring& wstrUnicode)//Unicode转utf8    
+{    
+	std::string strRet;  
+	if( wstrUnicode.empty() )  
+		return strRet;  
+	int nLen = WideCharToMultiByte(CP_UTF8, 0, wstrUnicode.c_str(), -1, NULL, 0, NULL, NULL);    
+	char* pBuffer=new char[nLen+1];  
+	pBuffer[nLen] = '\0';  
+	nLen = WideCharToMultiByte(CP_UTF8, 0, wstrUnicode.c_str(), -1, pBuffer, nLen, NULL, NULL);   
+	strRet.append(pBuffer);  
+	delete[] pBuffer;  
+	return strRet;    
+}  
+
+std::wstring util::Utf2U(const std::string &str)//utf8转Unicode  
+{  
+	int u16Len = ::MultiByteToWideChar(CP_UTF8, NULL,str.c_str(),(int)str.size(), NULL, 0);  
+	wchar_t* wstrBuf = new wchar_t[u16Len + 1];  
+	::MultiByteToWideChar(CP_UTF8, NULL, str.c_str(),(int)str.size(), wstrBuf, u16Len);  
+	wstrBuf[u16Len] = L'\0';  
+	std::wstring wStr;  
+	wStr.assign(wstrBuf, u16Len);  
+	delete [] wstrBuf;  
+	return wStr;  
+}  
+//分割字符串  
+bool util::SplitStringW(const std::wstring& strSource,const std::wstring& strFlag, std::vector<std::wstring>& paramList)  
+{  
+	if ( strSource.empty() || strFlag.empty() )  
+		return false;  
+	paramList.clear();  
+	size_t nBeg = 0;  
+	size_t nFind = strSource.find(strFlag, nBeg);  
+	if ( nFind == std::wstring::npos )  
+		paramList.push_back(strSource);  
+	else  
+	{  
+		while ( true )  
+		{  
+			if ( nFind != nBeg )  
+				paramList.push_back(strSource.substr(nBeg, nFind-nBeg));  
+			nBeg = nFind + strFlag.size();  
+			if ( nBeg == strSource.size() )  
+				break;  
+			nFind = strSource.find(strFlag, nBeg);  
+			if ( nFind == std::wstring::npos )  
+			{  
+				paramList.push_back(std::wstring(strSource.begin()+nBeg, strSource.end()));  
+				break;  
+			}  
+		}  
+	}  
+	return true;  
+}    
+//替换字符串  
+std::wstring util::StrReplaceW(const std::wstring& strContent, const std::wstring& strTag, const std::wstring& strReplace)  
+{  
+	size_t nBegin=0, nFind=0;  
+	nFind = strContent.find(strTag, nBegin);  
+	if ( nFind == std::wstring::npos )  
+		return strContent;  
+	size_t nTagLen = strTag.size();  
+	std::wstring strRet;  
+	while ( true )  
+	{  
+		strRet.append(strContent.begin()+nBegin, strContent.begin()+nFind);  
+		strRet.append(strReplace);  
+		nBegin = nFind + nTagLen;  
+		nFind = strContent.find(strTag, nBegin);  
+		if ( nFind == std::wstring::npos )  
+		{  
+			strRet.append(strContent.begin()+nBegin, strContent.end());  
+			break;  
+		}  
+	}  
+	return strRet;  
+}  
+
+std::string util::StrReplaceA( const std::string& strContent, const std::string& strTag, const std::string& strReplace )  
+{  
+	size_t nBegin=0, nFind=0;  
+	nFind = strContent.find(strTag, nBegin);  
+	if ( nFind == std::string::npos )  
+		return strContent;  
+	size_t nTagLen = strTag.size();  
+	std::string strRet;  
+	while ( true )  
+	{  
+		strRet.append(strContent.begin()+nBegin, strContent.begin()+nFind);  
+		strRet.append(strReplace);  
+		nBegin = nFind + nTagLen;  
+		nFind = strContent.find(strTag, nBegin);  
+		if ( nFind == std::string::npos )  
+		{  
+			strRet.append(strContent.begin()+nBegin, strContent.end());  
+			break;  
+		}  
+	}  
+	return strRet;  
+}  
+
+bool util::SplitStringA(const std::string& strSource,const std::string& strFlag, std::vector<std::string>& paramList)
+{
+	if ( strSource.empty() || strFlag.empty() )  
+		return false;  
+	paramList.clear();  
+	size_t nBeg = 0;  
+	size_t nFind = strSource.find(strFlag, nBeg);  
+	if ( nFind == std::string::npos )  
+		paramList.push_back(strSource);  
+	else  
+	{  
+		while ( true )  
+		{  
+			if ( nFind != nBeg )  
+				paramList.push_back(strSource.substr(nBeg, nFind-nBeg));  
+			nBeg = nFind + strFlag.size();  
+			if ( nBeg == strSource.size() )  
+				break;  
+			nFind = strSource.find(strFlag, nBeg);  
+			if ( nFind == std::string::npos )  
+			{  
+				paramList.push_back(std::string(strSource.begin()+nBeg, strSource.end()));  
+				break;  
+			}  
+		}  
+	}  
+	return true;
+}
+
+int util::ReadFileDate(std::string filePaht,std::string &message)
+{
+	FILE *in;
+	if(filePaht.empty())
+		return -1;
+	if(_access(filePaht.c_str(), 0) == -1)
+	{
+		return -1;
+	}
+	if((in=fopen(filePaht.c_str(),"r"))!=NULL)
+	{
+		std::string src ="";
+		char* result1 = NULL;
+		long length=0;//声明文件长度
+		fseek(in,0,SEEK_END);//将文件内部指针放到文件最后面
+		length=ftell(in);//读取文件指针的位置，得到文件字符的个数
+		if(length <=0)
+		{
+			fclose(in);
+			return -1;
+		}
+		rewind(in);//将文件指针重置到文件最前面
+		result1 = new char[length+1];
+		memset(result1,'\0',length+1);
+		while(!feof(in))//判定文件是否结尾
+		{
+			if(fgets(result1,length+1,in)!=NULL)
+			{
+				src.append(result1);
+			}
+		}
+		message = src;
+		fclose(in);
+		delete []result1;
+		if(message.size() >0)
+			return 0;
+		else
+			return -1;
+	}else
+	{
+		return -1;
+	}
+}
+
+int util::WriteFileDate(std::string filename,unsigned char* date,int len)
+{
+	FILE *fp;
+	fp=fopen(const_cast<char*>(filename.c_str()),"wb");
+	if(fp!=NULL)
+	{
+		fwrite(date,sizeof(unsigned char),len,fp);
+		fclose(fp);
+		return 0;
+	}
+	return -1;
 }
