@@ -4,9 +4,9 @@
 class util
 {
 	public:
-		void readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def);
-		void readINIFileInt(std::string path,std::string root,std::string userkey,int &userValue,int def);
-		void writeINIFileString(std::string path,std::string root,std::string userkey,std::string value);
+		void readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def);//读ini
+		void readINIFileInt(std::string path,std::string root,std::string userkey,int &userValue,int def);//读ini
+		void writeINIFileString(std::string path,std::string root,std::string userkey,std::string value);//写ini
 		void UTF_8ToUnicode(wchar_t* pOut,char *pText);  // 把UTF-8转换成Unicode
 		void UnicodeToUTF_8(char* pOut,wchar_t* pText);  //Unicode 转换成UTF-8
 		void UnicodeToGB2312(char* pOut,wchar_t uData);  // 把Unicode 转换成 GB2312

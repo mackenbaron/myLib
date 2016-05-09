@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "util.h" 
-#include "JsonString.h"
+//#include "JsonString.h"
+#include "JSON_checker.h"
 
 void util::readINIFileString(std::string path,std::string root,std::string userkey,std::string &uservalue,std::string def)
 {
@@ -392,11 +393,17 @@ std::string util::UrlDecode(const std::string& szToDecode)
 
 bool util::CheckFormatJson(std::string src)
 {
-	JsonString a ;
-	const char* _tempa = src.c_str();
-	const char* _tempb = src.c_str()+src.size();
-	bool ad = a.CheckFormat(_tempa,_tempb);
-	return ad;
+// 	JsonString a ;
+// 	const char* _tempa = src.c_str();
+// 	const char* _tempb = src.c_str()+src.size();
+// 	bool ad = a.CheckFormat(_tempa,_tempb);
+// 	return ad;
+
+	int a = json_checker(src.c_str());
+	if(a==0)
+		return true;
+	else
+		return false;
 }
 
 std::string util::U2A(const std::wstring& str)
