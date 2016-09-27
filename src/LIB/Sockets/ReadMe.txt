@@ -6,7 +6,7 @@ AppWizard has created this Sockets library project for you.
 
 This file contains a summary of what you will find in each of the files that
 make up your Sockets application.
-
+sadsa
 
 Sockets.vcxproj
     This is the main project file for VC++ projects generated using an Application Wizard.
