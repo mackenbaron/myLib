@@ -30,6 +30,7 @@
     <ProjectGuid>{7C37B720-9789-429E-AB97-1D1BACE21BC1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LibJson</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -95,6 +96,7 @@
     <OutDir>$(SolutionDir)..\..\lib\$(Configuration)\</OutDir>
     <IncludePath>.\Include;..\..\..\inc;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\lib\Debug;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\..\lib\$(Configuration)\</OutDir>

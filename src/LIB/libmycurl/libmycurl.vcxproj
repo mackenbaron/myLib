@@ -30,6 +30,7 @@
     <ProjectGuid>{D73241EB-769C-4082-9902-0EC781B88A19}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>libmycurl</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -103,6 +104,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>..\..\..\lib;..\..\..\lib\Debug;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\..\lib\$(Configuration)\</OutDir>
+    <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LibraryPath>..\..\..\lib;..\..\..\lib\Debug;$(LibraryPath)</LibraryPath>

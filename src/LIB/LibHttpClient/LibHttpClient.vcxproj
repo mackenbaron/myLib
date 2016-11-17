@@ -30,6 +30,7 @@
     <ProjectGuid>{7517D38E-B33F-47EF-9C70-8AC0650D1DC6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LibHttpClient</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -95,6 +96,7 @@
     <OutDir>$(SolutionDir)../../lib/$(Configuration)\</OutDir>
     <IncludePath>.\Include;..\..\..\inc;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\lib\Debug;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)../../lib/$(Configuration)\</OutDir>

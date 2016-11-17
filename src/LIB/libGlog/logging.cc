@@ -57,6 +57,7 @@
 #include <vector>
 #include <errno.h>                   // for errno
 #include <sstream>
+#include <algorithm>
 #include "base/commandlineflags.h"        // to get the program name
 #include "glog/logging.h"
 #include "glog/raw_logging.h"
