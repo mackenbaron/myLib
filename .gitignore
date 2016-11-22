@@ -34,6 +34,7 @@
 *.out
 *.app
 *.opendb
+*.ipch
 
 # files
 build/*
